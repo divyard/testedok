@@ -1,0 +1,40 @@
+<html>
+<body>
+<table style="width:100%" id="ex-table">
+  <tr id="tr">
+    <th>good</th>
+    <th>Bad</th>
+  </tr>
+ </table>
+ <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+var config = {
+        apiKey: "AIzaSyC6RWcac8aE3_-B9l8Eq8aG-aYZbSGtBvk",
+        authDomain: "labview-b5475.firebaseapp.com",
+        databaseURL: "https://labview-b5475.firebaseio.com",
+        projectId: "labview-b5475",
+        storageBucket: "labview-b5475.appspot.com",
+        messagingSenderId: "1061266498051",
+        appId: "1:1061266498051:web:440d4d8b8c164cf8"
+};
+firebase.initializeApp(config);
+    var database = firebase.database();
+    database.ref().child('table').once('value', function(snapshot){
+        if(snapshot.exists()){
+            var content = '';
+            snapshot.forEach(function(data){
+                var val = data.val();
+                content +='<tr>';
+                content += '<td>' + val.bad + '</td>';
+                content += '<td>' + val.good + '</td>';
+
+                content += '</tr>';
+            });
+            $('#ex-table').append(content);
+        }
+    });
+</script>
+</body>
+</html>
